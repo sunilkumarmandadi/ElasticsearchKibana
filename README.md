@@ -1,4 +1,4 @@
-# ElasticsearchKibana
+# Elasticsearch & Kibana
 This REST API is used Elasticsearch and Kibana for logging.
 <br/>
 
