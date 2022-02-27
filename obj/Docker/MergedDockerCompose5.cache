@@ -1,0 +1,49 @@
+networks:
+  elastic:
+    driver: bridge
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      discovery.type: single-node
+      xpack.monitoring.enabled: "true"
+      xpack.watcher.enabled: "false"
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    networks:
+      elastic: {}
+    ports:
+    - published: 9200
+      target: 9200
+    volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data:rw
+  kibana:
+    container_name: kibana
+    depends_on:
+      elasticsearch:
+        condition: service_started
+    environment:
+      ELASTICSEARCH_URL: http://localhost:9200
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    networks:
+      elastic: {}
+    ports:
+    - published: 5601
+      target: 5601
+  logelasticsearchkibanaapi:
+    build:
+      context: C:\SUNIL\Practise\LogWithElasticsearchKibana\LogElasticsearchKibanaAPI
+      dockerfile: LogElasticsearchKibanaAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: logelasticsearchkibanaapi
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\sunil\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\sunil\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
+volumes:
+  elasticsearch-data: {}

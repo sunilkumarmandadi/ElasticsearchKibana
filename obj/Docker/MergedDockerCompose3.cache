@@ -1,0 +1,16 @@
+services:
+  logelasticsearchkibanaapi:
+    build:
+      context: C:\SUNIL\Practise\LogWithElasticsearchKibana\LogElasticsearchKibanaAPI
+      dockerfile: LogElasticsearchKibanaAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: logelasticsearchkibanaapi
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\sunil\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\sunil\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
