@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "serviceActions": {
+        "elasticsearch": "StartWithoutDebugging",
+        "kibana": "StartWithoutDebugging",
+        "logelasticsearchkibanaapi": "StartDebugging"
+      },
+      "commandVersion": "1.0"
+    }
+  }
+}
